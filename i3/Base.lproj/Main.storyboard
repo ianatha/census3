@@ -104,20 +104,34 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="FirstViewController" customModule="i3" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="486" height="330"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CRc-u8-dbb">
-                                <rect key="frame" x="161" y="104" width="161" height="17"/>
+                                <rect key="frame" x="137" y="143" width="213" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="What do friends call you?" id="OiH-OU-K8B">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="FleetFriendlyName" id="OiH-OU-K8B">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-DT-8i6">
+                                <rect key="frame" x="179" y="168" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSComputer" id="HhS-YK-akK"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Xj-ku-vDh">
+                                <rect key="frame" x="163" y="79" width="161" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="What do friends call you?" id="i7q-P7-811">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BiN-i1-EsX">
-                                <rect key="frame" x="175" y="74" width="131" height="22"/>
+                                <rect key="frame" x="178" y="49" width="131" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" drawsBackground="YES" id="aGg-KX-WIA">
                                     <font key="font" metaFont="system"/>
@@ -126,9 +140,9 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOu-KC-kcd">
-                                <rect key="frame" x="178" y="38" width="124" height="32"/>
+                                <rect key="frame" x="118" y="13" width="250" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Inventory me!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1oP-Ol-LjP">
+                                <buttonCell key="cell" type="push" title="Add my computer to the inventory!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1oP-Ol-LjP">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -136,21 +150,18 @@
                                     <segue destination="vid-2F-U4Z" kind="sheet" id="A1Y-gf-ok1"/>
                                 </connections>
                             </button>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-DT-8i6">
-                                <rect key="frame" x="175" y="129" width="132" height="123"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="HhS-YK-akK"/>
-                            </imageView>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="companyLogo" destination="BoF-DT-8i6" id="4aB-Yf-Tbw"/>
+                        <outlet property="companyName" destination="OiH-OU-K8B" id="4CA-4E-xS6"/>
                         <outlet property="logo" destination="BoF-DT-8i6" id="iUT-At-yy8"/>
                         <outlet property="nameTextField" destination="BiN-i1-EsX" id="ntV-HH-woL"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="78" y="685"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="j9T-d8-Lne">
@@ -239,6 +250,7 @@ DQ
         </scene>
     </scenes>
     <resources>
+        <image name="NSComputer" width="32" height="32"/>
         <image name="SuccessCheckmark" width="800" height="800"/>
     </resources>
 </document>

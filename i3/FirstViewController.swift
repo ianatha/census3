@@ -12,7 +12,8 @@ import Cocoa
 class FirstViewController : NSViewController {
     @IBOutlet weak var nameTextField: NSTextField!
 
-    @IBOutlet weak var logo: NSImageView!
+    @IBOutlet weak var companyName: NSTextFieldCell!
+    @IBOutlet weak var companyLogo: NSImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +23,12 @@ class FirstViewController : NSViewController {
             if let result = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: String] {
                 if let logoDataEncoded = result?["Logo"] {
                     if let imageData = NSData(base64Encoded: logoDataEncoded) {
-                        logo.image = NSImage(data: imageData as Data)
+                        companyLogo.image = NSImage(data: imageData as Data)
                     }
+                }
+
+                if let fleetFriendlyName = result?["FleetFriendlyName"] {
+                    companyName.stringValue = fleetFriendlyName
                 }
             }
         }
