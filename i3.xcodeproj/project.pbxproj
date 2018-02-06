@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0376DC0620201F21004C94D9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0376DC0520201F21004C94D9 /* Extensions.swift */; };
 		0376DC08202023D3004C94D9 /* Fleet.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0376DC07202023D3004C94D9 /* Fleet.plist */; };
+		03C84387202A673200946774 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C84385202A673100946774 /* Configuration.swift */; };
+		03C84388202A673200946774 /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C84386202A673200946774 /* Inventory.swift */; };
+		03C8438E202A6C2900946774 /* CachedExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C8438D202A6C2900946774 /* CachedExecutor.swift */; };
 		0A0383571BA10B39007902A8 /* TransitionSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0383561BA10B39007902A8 /* TransitionSegue.swift */; };
 		0A0383591BA11033007902A8 /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0383581BA11033007902A8 /* FinalViewController.swift */; };
 		0AD6F3241BA0E277001B969F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6F3231BA0E277001B969F /* AppDelegate.swift */; };
@@ -32,6 +35,9 @@
 /* Begin PBXFileReference section */
 		0376DC0520201F21004C94D9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0376DC07202023D3004C94D9 /* Fleet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Fleet.plist; sourceTree = "<group>"; };
+		03C84385202A673100946774 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		03C84386202A673200946774 /* Inventory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inventory.swift; sourceTree = "<group>"; };
+		03C8438D202A6C2900946774 /* CachedExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedExecutor.swift; sourceTree = "<group>"; };
 		0A0383561BA10B39007902A8 /* TransitionSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionSegue.swift; sourceTree = "<group>"; };
 		0A0383581BA11033007902A8 /* FinalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
 		0AD6F31E1BA0E277001B969F /* i3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = i3.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,12 +91,15 @@
 		0AD6F3201BA0E277001B969F /* i3 */ = {
 			isa = PBXGroup;
 			children = (
+				03C84385202A673100946774 /* Configuration.swift */,
+				03C84386202A673200946774 /* Inventory.swift */,
+				0376DC0520201F21004C94D9 /* Extensions.swift */,
+				03C8438D202A6C2900946774 /* CachedExecutor.swift */,
 				0AD6F3291BA0E277001B969F /* Main.storyboard */,
 				0AD6F3231BA0E277001B969F /* AppDelegate.swift */,
 				0AD6F3251BA0E277001B969F /* FirstViewController.swift */,
 				0AD6F3421BA0F014001B969F /* SecondViewController.swift */,
 				0A0383581BA11033007902A8 /* FinalViewController.swift */,
-				0376DC0520201F21004C94D9 /* Extensions.swift */,
 				0A0383561BA10B39007902A8 /* TransitionSegue.swift */,
 				0AD6F3211BA0E277001B969F /* Supporting Files */,
 			);
@@ -227,11 +236,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C84388202A673200946774 /* Inventory.swift in Sources */,
 				0AD6F3431BA0F014001B969F /* SecondViewController.swift in Sources */,
 				0376DC0620201F21004C94D9 /* Extensions.swift in Sources */,
+				03C84387202A673200946774 /* Configuration.swift in Sources */,
 				0A0383591BA11033007902A8 /* FinalViewController.swift in Sources */,
 				0AD6F3261BA0E277001B969F /* FirstViewController.swift in Sources */,
 				0A0383571BA10B39007902A8 /* TransitionSegue.swift in Sources */,
+				03C8438E202A6C2900946774 /* CachedExecutor.swift in Sources */,
 				0AD6F3241BA0E277001B969F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

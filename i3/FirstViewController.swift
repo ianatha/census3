@@ -10,33 +10,25 @@ import Darwin
 import Cocoa
 
 class FirstViewController : NSViewController {
+    let configuration = I3Configuration(fromPlist: Bundle.main.url(forResource: "Fleet", withExtension: "plist")!)
+
     @IBOutlet weak var nameTextField: NSTextField!
 
     @IBOutlet weak var companyName: NSTextFieldCell!
     @IBOutlet weak var companyLogo: NSImageView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let fileUrl = Bundle.main.url(forResource: "Fleet", withExtension: "plist"),
-            let data = try? Data(contentsOf: fileUrl) {
-            if let result = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: String] {
-                if let logoDataEncoded = result?["Logo"] {
-                    if let imageData = NSData(base64Encoded: logoDataEncoded) {
-                        companyLogo.image = NSImage(data: imageData as Data)
-                    }
-                }
 
-                if let fleetFriendlyName = result?["FleetFriendlyName"] {
-                    companyName.stringValue = fleetFriendlyName
-                }
-            }
-        }
+        companyLogo.image = configuration.fleetImage!
+        companyName.stringValue = configuration.fleetFriendlyName!
     }
-    
+
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        configuration.collected_name = nameTextField.stringValue
+
         let next = segue.destinationController as! SecondViewController
-        next.representedObject = nameTextField.stringValue
+        next.representedObject = configuration
     }
 
     override var representedObject: Any? {
@@ -44,4 +36,3 @@ class FirstViewController : NSViewController {
         }
     }    
 }
-
