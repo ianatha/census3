@@ -7,4 +7,5 @@ clean:
 
 i3:
 	xcodebuild -target i3 -configuration Release
-	pushd build/Release && rm -f ../i3.zip && zip -r ../i3.zip i3.app/ && popd
+	rm -rf build/i3.zip
+	ditto -v -c -k --sequesterRsrc --keepParent build/Release/i3.app/ build/i3.zip
