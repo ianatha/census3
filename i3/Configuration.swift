@@ -63,6 +63,9 @@ class I3Configuration {
                 self.fleetImage = NSImage(data: fleetLogoData as Data)
             }
         }
+        if let backendURLData = appPath.extendedAttribute(forName: "io.mamabear.i3.BackendURL") {
+            self.backendURL = String(data: backendURLData, encoding: String.Encoding.utf8)!
+        }
     }
 
     init(fromPlist: URL) {
