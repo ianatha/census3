@@ -43,7 +43,7 @@ class I3Configuration {
     var fleetImage: NSImage?
     var fleetFriendlyName: String?
 
-    var backendURL: String = "https://requestb.in/1hx6d7u1"
+    var backendURL: String = "http://localhost:7777/inventory"
 
     var collected_name: String = ""
 
