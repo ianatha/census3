@@ -143,6 +143,7 @@
 				0AD6F31A1BA0E277001B969F /* Sources */,
 				0AD6F31B1BA0E277001B969F /* Frameworks */,
 				0AD6F31C1BA0E277001B969F /* Resources */,
+				0360BE2C202BF58600DF3130 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -230,6 +231,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0360BE2C202BF58600DF3130 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Disables NSAppTransportSecurity in Release builds\n\nINFOPLIST=\"${TARGET_BUILD_DIR}\"/\"${INFOPLIST_PATH}\"\n\ncase \"${CONFIGURATION}\" in\n\"Release\")\n/usr/libexec/PlistBuddy -c \"Delete :NSAppTransportSecurity\" \"${INFOPLIST}\"\n;;\nesac\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0AD6F31A1BA0E277001B969F /* Sources */ = {
