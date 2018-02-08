@@ -24,6 +24,10 @@ class FirstViewController : NSViewController {
         companyName.stringValue = configuration.fleetFriendlyName!
     }
 
+    override func viewDidAppear() {
+        NSApp.activate(ignoringOtherApps: true)
+    }
+    
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         configuration.collected_name = nameTextField.stringValue
 
