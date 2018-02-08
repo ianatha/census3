@@ -23,10 +23,7 @@ class FirstViewController : NSViewController {
         if let fleetImage = configuration.fleetImage {
             companyLogo.image = fleetImage
         }
-        if let fleetFriendlyName = configuration.fleetFriendlyName {
-            companyName.stringValue = fleetFriendlyName
-        }
-
+        companyName.stringValue = configuration.fleetFriendlyName
     }
 
     override func viewDidAppear() {

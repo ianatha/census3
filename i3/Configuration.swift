@@ -41,7 +41,7 @@ extension URL {
 
 class I3Configuration {
     var fleetImage: NSImage?
-    var fleetFriendlyName: String?
+    var fleetFriendlyName: String = "Default FleetFriendlyName"
 
     var backendURL: String = "http://localhost:7777/inventory"
 
@@ -55,8 +55,8 @@ class I3Configuration {
     /* From xattr */
     init() {
         let appPath = Bundle.main.bundleURL
-        if let fleetFriendlyName = appPath.extendedAttribute(forName: "io.mamabear.i3.FleetFriendlyName") {
-            self.fleetFriendlyName = String(data: fleetFriendlyName, encoding: String.Encoding.utf8)
+        if let fleetFriendlyNameData = appPath.extendedAttribute(forName: "io.mamabear.i3.FleetFriendlyName") {
+            self.fleetFriendlyName = String(data: fleetFriendlyNameData, encoding: String.Encoding.utf8)!
         }
         if let fleetLogoBase64 = appPath.extendedAttribute(forName: "io.mamabear.i3.FleetLogo") {
             if let fleetLogoData = NSData(base64Encoded: fleetLogoBase64) {
