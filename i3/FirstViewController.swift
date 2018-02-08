@@ -10,7 +10,7 @@ import Darwin
 import Cocoa
 
 class FirstViewController : NSViewController {
-    let configuration = I3Configuration(fromPlist: Bundle.main.url(forResource: "Fleet", withExtension: "plist")!)
+    let configuration = I3Configuration()
 
     @IBOutlet weak var nameTextField: NSTextField!
 
@@ -20,8 +20,13 @@ class FirstViewController : NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        companyLogo.image = configuration.fleetImage!
-        companyName.stringValue = configuration.fleetFriendlyName!
+        if let fleetImage = configuration.fleetImage {
+            companyLogo.image = fleetImage
+        }
+        if let fleetFriendlyName = configuration.fleetFriendlyName {
+            companyName.stringValue = fleetFriendlyName
+        }
+
     }
 
     override func viewDidAppear() {

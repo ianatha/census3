@@ -9,6 +9,36 @@
 import Foundation
 import Cocoa
 
+extension URL {
+    func extendedAttribute(forName name: String) -> Data? {
+        do {
+            return try self.withUnsafeFileSystemRepresentation { fileSystemPath -> Data? in
+                // Determine attribute size:
+                let length = getxattr(fileSystemPath, name, nil, 0, 0, 0)
+                guard length >= 0 else { throw URL.posixError(errno) }
+
+                // Create buffer with required size:
+                var data = Data(count: length)
+
+                // Retrieve attribute:
+                let result =  data.withUnsafeMutableBytes {
+                    getxattr(fileSystemPath, name, $0, data.count, 0, 0)
+                }
+
+                guard result >= 0 else { return nil }
+                return data
+            }
+        } catch {
+            return nil
+        }
+    }
+
+    private static func posixError(_ err: Int32) -> NSError {
+        return NSError(domain: NSPOSIXErrorDomain, code: Int(err),
+                       userInfo: [NSLocalizedDescriptionKey: String(cString: strerror(err))])
+    }
+}
+
 class I3Configuration {
     var fleetImage: NSImage?
     var fleetFriendlyName: String?
@@ -20,6 +50,19 @@ class I3Configuration {
     init(fleetImage: NSImage, fleetFriendlyName: String) {
         self.fleetImage = fleetImage
         self.fleetFriendlyName = fleetFriendlyName
+    }
+
+    /* From xattr */
+    init() {
+        let appPath = Bundle.main.bundleURL
+        if let fleetFriendlyName = appPath.extendedAttribute(forName: "io.mamabear.i3.FleetFriendlyName") {
+            self.fleetFriendlyName = String(data: fleetFriendlyName, encoding: String.Encoding.utf8)
+        }
+        if let fleetLogoBase64 = appPath.extendedAttribute(forName: "io.mamabear.i3.FleetLogo") {
+            if let fleetLogoData = NSData(base64Encoded: fleetLogoBase64) {
+                self.fleetImage = NSImage(data: fleetLogoData as Data)
+            }
+        }
     }
 
     init(fromPlist: URL) {
