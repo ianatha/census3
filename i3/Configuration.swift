@@ -52,7 +52,6 @@ class I3Configuration {
         self.fleetFriendlyName = fleetFriendlyName
     }
 
-    /* From xattr */
     init() {
         let appPath = Bundle.main.bundleURL
         if let fleetFriendlyNameData = appPath.extendedAttribute(forName: "io.mamabear.i3.FleetFriendlyName") {
@@ -65,22 +64,6 @@ class I3Configuration {
         }
         if let backendURLData = appPath.extendedAttribute(forName: "io.mamabear.i3.BackendURL") {
             self.backendURL = String(data: backendURLData, encoding: String.Encoding.utf8)!
-        }
-    }
-
-    init(fromPlist: URL) {
-        if let data = try? Data(contentsOf: fromPlist) {
-            if let result = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: String] {
-                if let logoDataEncoded = result?["Logo"] {
-                    if let imageData = NSData(base64Encoded: logoDataEncoded) {
-                        self.fleetImage = NSImage(data: imageData as Data)
-                    }
-                }
-
-                if let fleetFriendlyName = result?["FleetFriendlyName"] {
-                    self.fleetFriendlyName = fleetFriendlyName
-                }
-            }
         }
     }
 }
