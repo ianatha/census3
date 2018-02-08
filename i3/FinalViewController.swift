@@ -10,7 +10,15 @@ import Cocoa
 import Darwin
 
 class FinalViewController: NSViewController {
+    var webContinuation: String = ""
+
+    override func viewDidAppear() {
+        self.webContinuation = self.representedObject as! String
+    }
+
     @IBAction func okButtonClicked(sender: AnyObject) {
-        exit(0)
+        if let url = URL(string: self.webContinuation), NSWorkspace.shared.open(url) {
+            exit(0)
+        }
     }
 }

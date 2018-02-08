@@ -12,7 +12,7 @@ protocol MamabearInventoryListener {
     func workStarted(steps: Int)
     func stepStarted(text: String)
     func stepCompleted()
-    func workCompleted()
+    func workCompleted(webContinuation: String)
 }
 
 class MamabearInventory {
@@ -59,12 +59,21 @@ class MamabearInventory {
     //        return self.representedObject as! String;
     //    }
 
-    func transmitInventory(url: String, parameters: [String: AnyObject], completion: @escaping () -> ()) {
+    func transmitInventory(url: String, parameters: [String: AnyObject], completion: @escaping (String) -> ()) {
         let parameterString = parameters.stringFromHttpParameters()
         let requestURL = NSURL(string:"\(url)?\(parameterString)")!
 
+        print("start")
         let task = URLSession.shared.dataTask(with: requestURL as URL) {(data, response, error) in
-            completion()
+            print("finish")
+            if error != nil {
+                print(error!)
+            } else {
+                if let usableData = data {
+                    let usableDataString = String(data: usableData, encoding: String.Encoding.utf8)!
+                    completion(usableDataString)
+                }
+            }
         }
 
         task.resume()
@@ -112,9 +121,9 @@ class MamabearInventory {
             self.listener.stepStarted(text: "Transmitting to mothership...")
         }
 
-        self.transmitInventory(url: self.backendURL, parameters: inventory as [String : AnyObject], completion: {
+        self.transmitInventory(url: self.backendURL, parameters: inventory as [String : AnyObject], completion: { (result) in
             DispatchQueue.main.async {
-                self.listener.workCompleted()
+                self.listener.workCompleted(webContinuation: result)
             }
         })
     }
