@@ -240,7 +240,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Disables NSAppTransportSecurity in Release builds\n\nINFOPLIST=\"${TARGET_BUILD_DIR}\"/\"${INFOPLIST_PATH}\"\n\ncase \"${CONFIGURATION}\" in\n\"Release\")\n/usr/libexec/PlistBuddy -c \"Delete :NSAppTransportSecurity\" \"${INFOPLIST}\"\n;;\nesac\n";
+			shellScript = "# Disables NSAppTransportSecurity in Release builds\n\nINFOPLIST=\"${TARGET_BUILD_DIR}\"/\"${INFOPLIST_PATH}\"\n\ncase \"${CONFIGURATION}\" in\n\"Release\")\n/usr/libexec/PlistBuddy -c \"Delete :NSAppTransportSecurity\" \"${INFOPLIST}\" || true\n;;\nesac\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
