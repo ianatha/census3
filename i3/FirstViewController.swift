@@ -31,6 +31,7 @@ class FirstViewController : NSViewController {
 
     override func viewDidAppear() {
         NSApp.activate(ignoringOtherApps: true)
+        self.view.window?.center()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
