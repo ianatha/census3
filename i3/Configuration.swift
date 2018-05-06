@@ -21,8 +21,9 @@ extension URL {
                 var data = Data(count: length)
 
                 // Retrieve attribute:
-                let result =  data.withUnsafeMutableBytes {
-                    getxattr(fileSystemPath, name, $0, data.count, 0, 0)
+                let data_count = data.count
+                let result = data.withUnsafeMutableBytes {
+                    getxattr(fileSystemPath, name, $0, data_count, 0, 0)
                 }
 
                 guard result >= 0 else { return nil }
@@ -41,8 +42,7 @@ extension URL {
 
 class I3Configuration {
     var fleetImage: NSImage?
-    var fleetFriendlyName: String = "Default FleetFriendlyName"
-
+    var fleetFriendlyName: String = "Test Industries"
     var backendURL: String = "http://localhost:7777/inventory"
 
     var collected_name: String = ""

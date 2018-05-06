@@ -9,7 +9,8 @@
 import Cocoa
 
 class SecondViewController: NSViewController, MamabearInventoryListener {
-    var webContinuation: String = ""
+    var webContinuationSuccess: Bool = false
+    var webContinuationResult: [String : Any] = [:]
 
     func workStarted(steps: Int) {
         self.progressIndicator.minValue = 0
@@ -26,17 +27,18 @@ class SecondViewController: NSViewController, MamabearInventoryListener {
         self.status.stringValue = ""
     }
 
-    func workCompleted(webContinuation: String) {
+    func workCompleted(webContinuationSuccess: Bool, webContinuationResult: [String: Any]) {
         self.status.stringValue = ""
         self.progressIndicator.stopAnimation(nil)
 
-        self.webContinuation = webContinuation
+        self.webContinuationSuccess = webContinuationSuccess 
+        self.webContinuationResult = webContinuationResult
         self.performSegue(withIdentifier: NSStoryboardSegue.Identifier("next"), sender: self)
     }
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         let next = segue.destinationController as! FinalViewController
-        next.representedObject = self.webContinuation
+        next.representedObject = (self.webContinuationSuccess, self.webContinuationResult)
     }
 
     @IBOutlet weak var progressIndicator: NSProgressIndicator!

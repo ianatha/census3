@@ -12,7 +12,7 @@ protocol MamabearInventoryListener {
     func workStarted(steps: Int)
     func stepStarted(text: String)
     func stepCompleted()
-    func workCompleted(webContinuation: String)
+    func workCompleted(webContinuationSuccess: Bool, webContinuationResult: [String: Any])
 }
 
 class MamabearInventory {
@@ -59,20 +59,26 @@ class MamabearInventory {
     //        return self.representedObject as! String;
     //    }
 
-    func transmitInventory(url: String, parameters: [String: AnyObject], completion: @escaping (String) -> ()) {
-        let parameterString = parameters.stringFromHttpParameters()
-        let requestURL = NSURL(string:"\(url)?\(parameterString)")!
+    func transmitInventory(url: String, parameters: [String: Any], completion: @escaping (Bool, [String: Any]) -> ()) {
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.httpBody = try! JSONSerialization.data(withJSONObject: parameters)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("https://github.com/MamabearIO/i3/tree/v" + (Bundle.main.infoDictionary?["CFBundleVersion"] as! String? ?? ""), forHTTPHeaderField: "User-Agent")
 
-        print("start")
-        let task = URLSession.shared.dataTask(with: requestURL as URL) {(data, response, error) in
-            print("finish")
-            if error != nil {
-                print(error!)
-            } else {
-                if let usableData = data {
-                    let usableDataString = String(data: usableData, encoding: String.Encoding.utf8)!
-                    completion(usableDataString)
+        let task = URLSession.shared.dataTask(with: request) {(data, response, error) in
+            if let data = data, let status = (response as? HTTPURLResponse)?.statusCode {
+                if status == 200 {
+                    if let _json = try? (JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]), let json = _json {
+                        completion(true, json)
+                    } else {
+                        completion(false, ["err": "The backend didn't respond with a valid response."])
+                    }
+                } else {
+                    completion(false, ["err": "The backend responded with HTTP error \(status)."])
                 }
+            } else {
+                completion(false, ["err": error!.localizedDescription])
             }
         }
 
@@ -86,7 +92,7 @@ class MamabearInventory {
     }
 
     func start() {
-        let inventory_data_spec: Dictionary<String, () -> String> = [
+        let inventory_data_spec: Dictionary<String, () -> Any> = [
             "name":             { self.extraInfo["name"]! },
             "software_version": { self.software_version() },
             "model_id":         { self.system_profile(category: "SPHardwareDataType", name: "Model Identifier") },
@@ -99,12 +105,15 @@ class MamabearInventory {
             "boot_rom_version": { self.system_profile(category: "SPHardwareDataType", name: "Boot ROM Version") },
             "smc_version":      { self.system_profile(category: "SPHardwareDataType", name: "SMC Version (system)") },
             "local_time":       { self.current_time() },
-            "users":            { self.users().joined(separator: ";") },
+            "users":            { self.users() },
             "storage_capacity": { self.system_profile(category: "SPStorageDataType", name: "Capacity") },
-            "user_agent":       { "io.mamabear.i3#macos" },
+            "osx_installation_date": {""},
+            "osx_fulldiskencryption": {""},
+            "osx_screensaver": {""},
+            "osx_firmwarepassword": {""},
         ]
 
-        var inventory = Dictionary<String, String>()
+        var inventory = Dictionary<String, Any>()
 
         DispatchQueue.main.async {
             self.listener.workStarted(steps: inventory_data_spec.count + 1)
@@ -121,9 +130,9 @@ class MamabearInventory {
             self.listener.stepStarted(text: "Transmitting to mothership...")
         }
 
-        self.transmitInventory(url: self.backendURL, parameters: inventory as [String : AnyObject], completion: { (result) in
+        self.transmitInventory(url: self.backendURL, parameters: inventory, completion: { (success, result) in
             DispatchQueue.main.async {
-                self.listener.workCompleted(webContinuation: result)
+                self.listener.workCompleted(webContinuationSuccess: success, webContinuationResult: result)
             }
         })
     }

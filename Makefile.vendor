@@ -1,0 +1,3 @@
+copy_to_madam: i3
+	cp build/i3.zip ../madam/src/main/resources/inventory3.zip
+	pushd ../madam/ && git diff --cached --exit-code > /dev/null && git add src/main/resources/inventory3.zip && git commit -m "Updated i3."
