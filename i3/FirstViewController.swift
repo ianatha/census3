@@ -12,8 +12,6 @@ import Cocoa
 class FirstViewController : NSViewController {
     let configuration = I3Configuration()
 
-    @IBOutlet weak var nameTextField: NSTextField!
-
     @IBOutlet weak var companyName: NSTextFieldCell!
     @IBOutlet weak var companyLogo: NSImageView!
 
@@ -32,8 +30,6 @@ class FirstViewController : NSViewController {
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        configuration.collected_name = nameTextField.stringValue
-
         let next = segue.destinationController as! SecondViewController
         next.representedObject = configuration
     }

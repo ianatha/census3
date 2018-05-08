@@ -50,9 +50,7 @@ class SecondViewController: NSViewController, MamabearInventoryListener {
         let configuration = self.representedObject as! I3Configuration
         let inventory = MamabearInventory(listener: self,
                                           backendURL: configuration.backendURL,
-                                          extraInfo: [
-                                            "name": configuration.collected_name
-            ])
+                                          extraInfo: [:])
 
         DispatchQueue.global(qos: .default).async {
             inventory.start()

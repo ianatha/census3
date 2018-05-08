@@ -42,10 +42,8 @@ extension URL {
 
 class I3Configuration {
     var fleetImage: NSImage?
-    var fleetFriendlyName: String = "Test Industries"
-    var backendURL: String = "http://localhost:7777/inventory"
-
-    var collected_name: String = ""
+    var fleetFriendlyName: String = "Mamabear Test"
+    var backendURL: String = "http://localhost:7777/inventory/mamabear"
 
     init(fleetImage: NSImage, fleetFriendlyName: String) {
         self.fleetImage = fleetImage

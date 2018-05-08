@@ -93,7 +93,6 @@ class MamabearInventory {
 
     func start() {
         let inventory_data_spec: Dictionary<String, () -> Any> = [
-            "name":             { self.extraInfo["name"]! },
             "software_version": { self.software_version() },
             "model_id":         { self.system_profile(category: "SPHardwareDataType", name: "Model Identifier") },
             "serial_number":    { self.system_profile(category: "SPHardwareDataType", name: "Serial Number (system)") },
@@ -104,7 +103,6 @@ class MamabearInventory {
             "hardware_uuid":    { self.system_profile(category: "SPHardwareDataType", name: "Hardware UUID") },
             "boot_rom_version": { self.system_profile(category: "SPHardwareDataType", name: "Boot ROM Version") },
             "smc_version":      { self.system_profile(category: "SPHardwareDataType", name: "SMC Version (system)") },
-            "local_time":       { self.current_time() },
             "users":            { self.users() },
             "storage_capacity": { self.system_profile(category: "SPStorageDataType", name: "Capacity") },
             "osx_installation_date": {""},
